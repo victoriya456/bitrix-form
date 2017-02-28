@@ -104,7 +104,10 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && $_POST["submit"] <> '' && (!isset($_P
                         ShowError(GetMessage("CC_BIEAF_IBLOCK_MODULE_NOT_INSTALLED"));
                         return;
                     }
-                    $element = new ComponentFormElement($arParams["IBLOCK_ID"], $arParams["FIELDS"], $form_requests, $form_requests['name']);
+                    if(isset($arParams["IBLOCK_NAME_ITREM"]) && !empty($arParams["IBLOCK_NAME_ITREM"])){
+                        $IBLOCK_NAME_ITREM = $form_requests[$arParams["IBLOCK_NAME_ITREM"]];
+                    }
+                    $element = new ComponentFormElement($arParams["IBLOCK_ID"], $arParams["FIELDS"], $form_requests, $IBLOCK_NAME_ITREM);
                     $element->SaveElement();
                 }
 

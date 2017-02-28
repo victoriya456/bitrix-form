@@ -104,6 +104,7 @@ $APPLICATION->SetTitle("Каталог книг");
 				"email",
 			),
 		),
+		"IBLOCK_NAME_ITREM" => "name",
 		"MESSAGE_SUCCESS" => "SUCCESS",
 
 		"EVENT_MESSAGE_ID" => "121",
