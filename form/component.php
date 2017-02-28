@@ -18,21 +18,30 @@
  * AJAX_MODE - ajax режим
  * */
 
-$form_requests = $_POST;
 $error_message = array();
 $arResult["PARAMS_HASH"] = md5(serialize($arParams).$this->GetTemplateName());
 if($arParams["USE_CAPTCHA"] == "Y"){
     $arResult["captcha"]=$APPLICATION->CaptchaGetCode();
 }
 
-if($_SERVER["REQUEST_METHOD"] == "POST" && $_POST["submit"] <> '' && (!isset($form_requests["PARAMS_HASH"]) || $arResult["PARAMS_HASH"] === $form_requests["PARAMS_HASH"])) {
+if($_SERVER["REQUEST_METHOD"] == "POST" && $_POST["submit"] <> '' && (!isset($_POST["PARAMS_HASH"]) || $arResult["PARAMS_HASH"] === $_POST["PARAMS_HASH"])) {
     if(check_bitrix_sessid()) {
 
-        if (!empty($form_requests["WEB_FORM_ID"])) {
+        if (!empty($_POST["WEB_FORM_ID"])) {
 
             Validator::lang(LANGUAGE_ID);
-            Validator::langDir($_SERVER["DOCUMENT_ROOT"] . SITE_TEMPLATE_PATH . "/components/res/form/" . $componentTemplate . "/lang");
-            $v = new  Validator($form_requests);
+
+
+            if(isset($arParams["PUTH_LANG_FILES_SITE_TEMPLATE"]) && $arParams["PUTH_LANG_FILES_SITE_TEMPLATE"] == "Y"){
+                $puth_lang_files = $_SERVER["DOCUMENT_ROOT"] . SITE_TEMPLATE_PATH . "/components/res/form/" . $componentTemplate . "/lang";
+            }else if(isset($arParams["PUTH_LANG_FILES_LOCAL_DIR"]) && $arParams["PUTH_LANG_FILES_LOCAL_DIR"] == "Y"){
+                $puth_lang_files = $_SERVER["DOCUMENT_ROOT"] . "/local/components/res/form/templates/" . $componentTemplate . "/lang";
+            }else if(isset($arParams["PUTH_LANG_FILES_TEMPLATE_COMPONENT"]) && $arParams["PUTH_LANG_FILES_TEMPLATE_COMPONENT"] == "Y"){
+                $puth_lang_files = $_SERVER["DOCUMENT_ROOT"] .  "/bitrix/components/res/form/" . $componentTemplate . "/lang";
+            }
+
+            Validator::langDir($puth_lang_files);
+            $v = new  Validator($_POST);
 
             foreach ($arParams["FIELDS_VALIDATE"] as $rule => $names_fields) {
                 if (isset($names_fields["PARAMETRS"]) && !empty($names_fields["PARAMETRS"])) {
@@ -41,7 +50,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && $_POST["submit"] <> '' && (!isset($fo
                     $v->rule($rule, $names_fields);
                 }
             }
-
+            if(isset($arParams["FIELD_LABEL"]) && !empty($arParams["FIELD_LABEL"])){
+                $v->labels($arParams["FIELD_LABEL"]);
+            }
             if (!$v->validate()) {
                 // Errors
                 $error_message = $v->errors();
@@ -58,6 +69,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && $_POST["submit"] <> '' && (!isset($fo
 
             //отправить email
             if (empty($arResult["error_message"])) {
+                $form_requests = $_POST;
+
                 if (empty($arParams["EMAIL_TO"])) {
                     $arParams["EMAIL_TO"] = COption::GetOptionString("main", "email_from");
                 }
