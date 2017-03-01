@@ -68,9 +68,9 @@ $APPLICATION->SetTitle("Каталог книг");
 		"AJAX_OPTION_JUMP" => "N",
 		"AJAX_OPTION_STYLE" => "Y",
 		"AJAX_OPTION_HISTORY" => "N",
-		"PUTH_LANG_FILES_SITE_TEMPLATE" => "Y",
-		"PUTH_LANG_FILES_LOCAL_DIR" => "N",
-		"PUTH_LANG_FILES_TEMPLATE_COMPONENT" => "N",
+		"PATH_LANG_FILES_SITE_TEMPLATE" => "Y",
+		"PATH_LANG_FILES_LOCAL_DIR" => "N",
+
 	)
 );
 ?>
@@ -87,6 +87,7 @@ $APPLICATION->SetTitle("Каталог книг");
 			"phone" => "STRING",
 			"message" => "HTML",
 		),
+		"IBLOCK_NAME_ITREM" => "name",
 		"FIELD_LABEL" => array(
 				"name" => "Имя",
 				"email" => "Email",
@@ -104,7 +105,6 @@ $APPLICATION->SetTitle("Каталог книг");
 				"email",
 			),
 		),
-		"IBLOCK_NAME_ITREM" => "name",
 		"MESSAGE_SUCCESS" => "SUCCESS",
 
 		"EVENT_MESSAGE_ID" => "121",
@@ -122,9 +122,9 @@ $APPLICATION->SetTitle("Каталог книг");
 		"AJAX_OPTION_JUMP" => "N",
 		"AJAX_OPTION_STYLE" => "N",
 		"AJAX_OPTION_HISTORY" => "N",
-		"PUTH_LANG_FILES_SITE_TEMPLATE" => "Y",
-		"PUTH_LANG_FILES_LOCAL_DIR" => "N",
-		"PUTH_LANG_FILES_TEMPLATE_COMPONENT" => "N",
+		"PATH_LANG_FILES_SITE_TEMPLATE" => "Y",
+		"PATH_LANG_FILES_LOCAL_DIR" => "N",
+
 	),
 	false
 );

@@ -32,11 +32,11 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && $_POST["submit"] <> '' && (!isset($_P
             Validator::lang(LANGUAGE_ID);
 
 
-            if(isset($arParams["PUTH_LANG_FILES_SITE_TEMPLATE"]) && $arParams["PUTH_LANG_FILES_SITE_TEMPLATE"] == "Y"){
+            if(isset($arParams["PATH_LANG_FILES_SITE_TEMPLATE"]) && $arParams["PATH_LANG_FILES_SITE_TEMPLATE"] == "Y"){
                 $puth_lang_files = $_SERVER["DOCUMENT_ROOT"] . SITE_TEMPLATE_PATH . "/components/res/form/" . $componentTemplate . "/lang";
-            }else if(isset($arParams["PUTH_LANG_FILES_LOCAL_DIR"]) && $arParams["PUTH_LANG_FILES_LOCAL_DIR"] == "Y"){
+            }else if(isset($arParams["PATH_LANG_FILES_LOCAL_DIR"]) && $arParams["PATH_LANG_FILES_LOCAL_DIR"] == "Y"){
                 $puth_lang_files = $_SERVER["DOCUMENT_ROOT"] . "/local/components/res/form/templates/" . $componentTemplate . "/lang";
-            }else if(isset($arParams["PUTH_LANG_FILES_TEMPLATE_COMPONENT"]) && $arParams["PUTH_LANG_FILES_TEMPLATE_COMPONENT"] == "Y"){
+            }else{
                 $puth_lang_files = $_SERVER["DOCUMENT_ROOT"] .  "/bitrix/components/res/form/" . $componentTemplate . "/lang";
             }
 
