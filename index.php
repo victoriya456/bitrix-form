@@ -68,8 +68,6 @@ $APPLICATION->SetTitle("Каталог книг");
 		"AJAX_OPTION_JUMP" => "N",
 		"AJAX_OPTION_STYLE" => "Y",
 		"AJAX_OPTION_HISTORY" => "N",
-		"PATH_LANG_FILES_SITE_TEMPLATE" => "Y",
-		"PATH_LANG_FILES_LOCAL_DIR" => "N",
 
 	)
 );
@@ -122,8 +120,6 @@ $APPLICATION->SetTitle("Каталог книг");
 		"AJAX_OPTION_JUMP" => "N",
 		"AJAX_OPTION_STYLE" => "N",
 		"AJAX_OPTION_HISTORY" => "N",
-		"PATH_LANG_FILES_SITE_TEMPLATE" => "Y",
-		"PATH_LANG_FILES_LOCAL_DIR" => "N",
 
 	),
 	false

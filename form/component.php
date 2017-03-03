@@ -19,6 +19,9 @@
  * */
 
 $error_message = array();
+$document_root = $_SERVER['DOCUMENT_ROOT'];
+
+
 $arResult["PARAMS_HASH"] = md5(serialize($arParams).$this->GetTemplateName());
 if($arParams["USE_CAPTCHA"] == "Y"){
     $arResult["captcha"]=$APPLICATION->CaptchaGetCode();
@@ -31,16 +34,21 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && $_POST["submit"] <> '' && (!isset($_P
 
             Validator::lang(LANGUAGE_ID);
 
+            $path_lang_files = array(
+                $document_root."/local/components/res/form/". $componentTemplate ."/lang/",
+                $document_root. SITE_TEMPLATE_PATH . "/components/res/form/" . $componentTemplate . "/lang/",
+                $document_root. BX_PERSONAL_ROOT."/components/res/form/templates/". $componentTemplate . "/lang/"
+            );
 
-            if(isset($arParams["PATH_LANG_FILES_SITE_TEMPLATE"]) && $arParams["PATH_LANG_FILES_SITE_TEMPLATE"] == "Y"){
-                $puth_lang_files = $_SERVER["DOCUMENT_ROOT"] . SITE_TEMPLATE_PATH . "/components/res/form/" . $componentTemplate . "/lang";
-            }else if(isset($arParams["PATH_LANG_FILES_LOCAL_DIR"]) && $arParams["PATH_LANG_FILES_LOCAL_DIR"] == "Y"){
-                $puth_lang_files = $_SERVER["DOCUMENT_ROOT"] . "/local/components/res/form/templates/" . $componentTemplate . "/lang";
-            }else{
-                $puth_lang_files = $_SERVER["DOCUMENT_ROOT"] .  "/bitrix/components/res/form/" . $componentTemplate . "/lang";
+            foreach($path_lang_files as $path){
+                if(file_exists($path)){
+                    Validator::langDir($path);
+                    break;
+                }else{
+                    continue;
+                }
             }
 
-            Validator::langDir($puth_lang_files);
             $v = new  Validator($_POST);
 
             foreach ($arParams["FIELDS_VALIDATE"] as $rule => $names_fields) {
